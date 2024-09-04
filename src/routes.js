@@ -59,5 +59,6 @@ router.get("/categorias", controllerCategoria.Listar);
 router.get("/banners", controllerBanner.Listar);
 router.get("/empresas/destaques", controllerEmpresa.Destaques);
 router.get("/pedidos", controllerPedido.Listar);
+router.get("/pedidos/:id_pedido", controllerPedido.ListarId);
 
 export default router;
