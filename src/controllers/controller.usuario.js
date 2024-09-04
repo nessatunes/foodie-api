@@ -28,7 +28,7 @@ async function Login(req, res) {
   }
 }
 
-async function Inserir (req, res) {
+async function Inserir(req, res) {
   const { nome, email, senha, endereco, complemento, bairro, cidade, uf, cep } =
     req.body;
 
@@ -45,6 +45,6 @@ async function Inserir (req, res) {
     cep,
     insta: "@devpoint.com.br",
   });
-};
+}
 
 export default { Favoritos, Login, Inserir };
