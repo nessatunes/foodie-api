@@ -1,4 +1,5 @@
 import serviceUsuario from "../services/service.usuario.js";
+import jwt from "../token.js";
 
 async function Favoritos(req, res) {
   try {
@@ -22,6 +23,7 @@ async function Login(req, res) {
       email: "teste@teste.com",
       nome: "Heber Stein Mazutti",
       insta: "@devpoint.com.br",
+      token: jwt.CreateJWT(123),
     });
   } else {
     res.status(401).json({ error: "E-mail ou senha inválida" });
@@ -29,22 +31,36 @@ async function Login(req, res) {
 }
 
 async function Inserir(req, res) {
-  const { nome, email, senha, endereco, complemento, bairro, cidade, uf, cep } =
-    req.body;
+  try {
+    const {
+      nome,
+      email,
+      senha,
+      endereco,
+      complemento,
+      bairro,
+      cidade,
+      uf,
+      cep,
+    } = req.body;
+    const usuario = await serviceUsuario.Inserir(
+      nome,
+      email,
+      senha,
+      endereco,
+      complemento,
+      bairro,
+      cidade,
+      uf,
+      cep
+    );
 
-  res.status(201).json({
-    id_usuario: 123,
-    nome,
-    email,
-    senha,
-    endereco,
-    complemento,
-    bairro,
-    cidade,
-    uf,
-    cep,
-    insta: "@devpoint.com.br",
-  });
+    usuario.token = jwt.CreateJWT(usuario.id_usuario)
+
+    res.status(201).json(usuario);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 }
 
 export default { Favoritos, Login, Inserir };

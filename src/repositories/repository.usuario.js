@@ -10,4 +10,46 @@ async function Favoritos(id_usuario) {
   return favoritos;
 }
 
-export default { Favoritos };
+async function Inserir(
+  nome,
+  email,
+  senha,
+  endereco,
+  complemento,
+  bairro,
+  cidade,
+  uf,
+  cep
+) {
+  const sql = `insert into usuario( nome,
+    email,
+    senha,
+    endereco,
+    complemento,
+    bairro,
+    cidade,
+    uf,
+    cep, dt_cadastro) values(?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    RETURNING id_usuario;
+    `;
+
+  let usuario = await execute(sql, [
+    nome,
+    email,
+    senha,
+    endereco,
+    complemento,
+    bairro,
+    cidade,
+    uf,
+    cep,
+  ]);
+
+  let retorno = {
+    id_usuario: usuario[0].ID_USUARIO,
+  };
+
+  return retorno;
+}
+
+export default { Favoritos, Inserir };
