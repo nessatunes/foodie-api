@@ -10,11 +10,30 @@ const router = Router();
 
 router.get("/categorias", jwt.ValidateJWT, controllerCategoria.Listar);
 router.get("/banners", jwt.ValidateJWT, controllerBanner.Listar);
+
+//Empresas
 router.get("/empresas/destaques", jwt.ValidateJWT, controllerEmpresa.Destaques);
+router.get("/empresas", jwt.ValidateJWT, controllerEmpresa.Listar);
+router.post(
+  "/empresas/:id_empresa/favoritos",
+  jwt.ValidateJWT,
+  controllerEmpresa.InserirFavorito
+);
+router.delete(
+  "/empresas/:id_empresa/favoritos",
+  jwt.ValidateJWT,
+  controllerEmpresa.ExcluirFavorito
+);
+router.get(
+  "/empresas/:id_empresa/cardapio",
+  jwt.ValidateJWT,
+  controllerEmpresa.Cardapio
+);
 
 //pedidos
 router.get("/pedidos", jwt.ValidateJWT, controllerPedido.Listar);
 router.get("/pedidos/:id_pedido", jwt.ValidateJWT, controllerPedido.ListarId);
+
 //usuarios
 router.get("/usuarios/favoritos", jwt.ValidateJWT, controllerUsuario.Favoritos);
 router.post("/usuarios/login", controllerUsuario.Login);
