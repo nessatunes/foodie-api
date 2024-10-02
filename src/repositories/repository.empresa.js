@@ -65,6 +65,15 @@ order by c.ordem, p.nome`;
 
   return retorno;
 }
+async function ListarProdutoId(id_empresa, id_produto) {
+  let sql = `select *
+  from produto
+  where id_empresa = ? and id_produto = ?`;
+
+  const produto = await execute(sql, [id_empresa, id_produto]);
+
+  return produto[0];
+}
 
 export default {
   Destaques,
@@ -72,4 +81,5 @@ export default {
   InserirFavorito,
   ExcluirFavorito,
   Cardapio,
+  ListarProdutoId,
 };

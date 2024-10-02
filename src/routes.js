@@ -29,10 +29,16 @@ router.get(
   jwt.ValidateJWT,
   controllerEmpresa.Cardapio
 );
+router.get(
+  "/empresas/:id_empresa/produtos/:id_produto",
+  jwt.ValidateJWT,
+  controllerEmpresa.ListarProdutoId
+);
 
 //pedidos
 router.get("/pedidos", jwt.ValidateJWT, controllerPedido.Listar);
 router.get("/pedidos/:id_pedido", jwt.ValidateJWT, controllerPedido.ListarId);
+router.post("/pedidos", jwt.ValidateJWT, controllerPedido.Inserir);
 
 //usuarios
 router.get("/usuarios/favoritos", jwt.ValidateJWT, controllerUsuario.Favoritos);
